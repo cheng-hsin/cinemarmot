@@ -3,13 +3,13 @@ import Head from "next/head";
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Axios from 'axios';
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import { trpc } from "../utils/trpc";
 
 const Home: NextPage = (props) => {
   const movies = props['results'];
-  console.log(Array.isArray(movies));
+  // console.log(Array.isArray(movies));
   const hello = trpc.example.hello.useQuery({ text: "from tRPC" });
 
 
