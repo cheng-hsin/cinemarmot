@@ -6,12 +6,26 @@ import Axios from 'axios';
 import React from "react";
 
 import { trpc } from "../utils/trpc";
+import { any } from "zod";
 
 const Home: NextPage = (props) => {
-  const movies = props['results'];
-  // console.log(Array.isArray(movies));
-  const hello = trpc.example.hello.useQuery({ text: "from tRPC" });
+  interface MyObj {
+    movie_id: bigint
+    movie_title: string | null
+    movie_release: Date | null
+    movie_length: string | null
+    movie_overview: string | null
+    movie_language: string | null
+    movie_poster_path: string | null
+    movie_leading: string | null
+    movie_director: string | null
+  };
 
+  let obj: { string: MyObj[] } = JSON.parse(JSON.stringify(props));
+  const movies = obj['result']['data']['json'];
+  console.log(movies);
+
+  const hello = trpc.example.hello.useQuery({ text: "from tRPC" });
 
   return (
     <>
@@ -31,7 +45,7 @@ const Home: NextPage = (props) => {
             {movies.map((movie:any) => (
               <div className="flex justify-center" key={movie.id}>
                 <div className="flex flex-col  md:max-w-xl shadow-lg">
-                  <img className=" w-full h-96 md:h-auto object-cover md:w-60 " src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} alt="" />
+                  <img className=" w-full h-96 md:h-auto object-cover md:w-60 " src={`https://upload.wikimedia.org/wikipedia/en/thumb/6/68/2gether_The_Series_2020_poster.jpg/250px-2gether_The_Series_2020_poster.jpg`} alt="" />
                   <li className="flex text-black p-4">{movie.original_title}</li>
                 </div>
               </div>
@@ -76,7 +90,7 @@ const AuthShowcase: React.FC = () => {
 };
 
 export const getStaticProps = async () => {
-  const res = await Axios.get("https://api.themoviedb.org/3/movie/upcoming?api_key=b7cd3340a794e5a2f35e3abb820b497f&language=en-US&page=1&region=TW");
+  const res = await Axios.get("http://localhost:3000/api/trpc/movies.getAll");
   return {
     props: res.data,
   };
