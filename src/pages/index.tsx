@@ -7,6 +7,7 @@ import React from "react";
 import List from '../components/List.tsx'
 import ListItem from '../components/ListItem.tsx'
 import Navbar from '../components/Navbar.tsx'
+import SeatMap from '../components/SeatMap.tsx'
 
 import { trpc } from "../utils/trpc";
 import { any, string } from "zod";
@@ -41,7 +42,7 @@ const Home: NextPage = (props) => {
       {/* <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#3d5a80] to-[#cbf3f0]"> */}
       <main className="flex min-h-screen flex-col items-center justify-center bg-white">
         <div className="container flex flex-row">
-          <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
+          <div className="pl-32 container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
             <div className="divide-y divide-slate-100">
               <List>
                 {movies.map((movie) => (
@@ -50,8 +51,14 @@ const Home: NextPage = (props) => {
               </List>
             </div>
           </div>
-          <div className="container flex flex-col items-center justify-center ">
-            <AuthShowcase />
+          {/* <div className="pl-28 container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
+            <div className="divide-y divide-slate-100 ">
+              <AuthShowcase/>
+            </div>
+          </div> */}
+          <div className="container flex flex-col items-center mt-8 ">
+              <AuthShowcase />
+
           </div>
         </div>
 
@@ -71,8 +78,8 @@ const AuthShowcase: React.FC = () => {
   );
 
   return (
-    // <div className="flex flex-col items-center justify-center gap-4">
-    //   <p className="text-center text-2xl text-white">
+    // <div className="flex flex-col items-center justify-center gap-4 ">
+    //   <p className="text-center text-2xl text-white ">
     //     {sessionData && <span>Hi {sessionData.user?.name}</span>}
     //     {secretMessage && <span> - {secretMessage}</span>}
     //   </p>
@@ -83,10 +90,14 @@ const AuthShowcase: React.FC = () => {
     //     {sessionData ? "Sign out" : "Sign in"}
     //   </button>
     // </div>
-    <div className="flex flex-col items-center  gap-4 position: fixed">
-      <p className="text-center text-2xl text-stone-400">
-        {sessionData && <span>Hi {sessionData.user?.name}, which movie do you wanna watch?</span>}
+    <div className="flex flex-col items-center  sticky top-0 ">
+      <p className="text-center text-2xl text-stone-400 mt-8 mb-2">
+      {sessionData ? `Hi ${sessionData.user?.name}, choose your seat!` : "Buy a ticket, go to the cinema, and enjoy the movie!"}
       </p>
+      <div className="bg-violet-600 w-56 h-9 text-center text-white mb-4 font-bold">
+        SCREEN
+      </div>
+      <SeatMap />
     </div>
   );
 };

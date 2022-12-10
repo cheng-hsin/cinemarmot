@@ -7,7 +7,7 @@ export default function ListItem({ movie }) {
             <form className="flex-auto p-6">
                 <div className="flex flex-wrap">
                     <h1 className="flex-auto font-medium text-slate-900">
-                        {movie.movie_title}
+                        {movie.movie_release.substring(0,10)}
                     </h1>
                     <div className="w-full flex-none mt-2 order-1 text-3xl font-bold text-sky-900">
                         {movie.movie_title}
@@ -53,7 +53,7 @@ export default function ListItem({ movie }) {
                 <div className="flex space-x-4 mb-5 text-sm font-medium">
                     <div className="flex-auto flex space-x-4">
                         <button className="h-8 px-6 font-semibold rounded-full bg-violet-600 text-white" type="submit">
-                            Check seat
+                            Check Seat
                         </button>
                         <button className="h-8 px-6 font-semibold rounded-full border border-slate-200 text-slate-900" type="button">
                             Intro
