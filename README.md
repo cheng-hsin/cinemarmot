@@ -83,6 +83,9 @@ You can use map and for loop to draw a seat map in React.
                 </tbody>
             </table>
 ```
+
+
+# PostgreSQL Cheat Sheet
 ### How to insert value into PostgreSQL with for loop?
 You can use for loop to insert value into PostgreSQL.
 ```sql
@@ -94,8 +97,6 @@ FOR r IN 1..12
 	end loop;
 end $$;
 ```
-
-# PostgreSQL Cheat Sheet
 ### Delete all row in PostgreSQL
 You can use truncate to delete all row in PostgreSQL.
 ```sql
