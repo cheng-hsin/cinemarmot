@@ -4,10 +4,11 @@ import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Axios from 'axios';
 import React from "react";
-import List from '../components/List.tsx'
-import ListItem from '../components/ListItem.tsx'
-import Navbar from '../components/Navbar.tsx'
-import SeatMap from '../components/SeatMap.tsx'
+import List from '../components/List'
+import ListItem from '../components/ListItem'
+import Navbar from '../components/Navbar'
+import SeatMap from '../components/SeatMap'
+import Paypal from "../components/Paypal";
 
 import { trpc } from "../utils/trpc";
 import { any, string } from "zod";
@@ -39,10 +40,9 @@ const Home: NextPage = (props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      {/* <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#3d5a80] to-[#cbf3f0]"> */}
       <main className="flex min-h-screen flex-col items-center justify-center bg-white">
         <div className="container flex flex-row">
-          <div className="pl-32 container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
+          <div className="pl-20 container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
             <div className="divide-y divide-slate-100">
               <List>
                 {movies.map((movie) => (
@@ -51,14 +51,11 @@ const Home: NextPage = (props) => {
               </List>
             </div>
           </div>
-          {/* <div className="pl-28 container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
-            <div className="divide-y divide-slate-100 ">
-              <AuthShowcase/>
-            </div>
-          </div> */}
-          <div className="container flex flex-col items-center mt-8 ">
+          <div className="pr-10 container flex flex-col items-center mt-8 ">
+            <div className="flex flex-col items-center  sticky top-0 ">
               <AuthShowcase />
-
+              <SeatMap />
+            </div>
           </div>
         </div>
 
@@ -78,27 +75,12 @@ const AuthShowcase: React.FC = () => {
   );
 
   return (
-    // <div className="flex flex-col items-center justify-center gap-4 ">
-    //   <p className="text-center text-2xl text-white ">
-    //     {sessionData && <span>Hi {sessionData.user?.name}</span>}
-    //     {secretMessage && <span> - {secretMessage}</span>}
-    //   </p>
-    //   <button
-    //     className="rounded-full bg-white/10 px-10 py-3 font-semibold text-black no-underline transition hover:bg-white/20"
-    //     onClick={sessionData ? () => signOut() : () => signIn()}
-    //   >
-    //     {sessionData ? "Sign out" : "Sign in"}
-    //   </button>
-    // </div>
-    <div className="flex flex-col items-center  sticky top-0 ">
+    <>
       <p className="text-center text-2xl text-stone-400 mt-8 mb-2">
-      {sessionData ? `Hi ${sessionData.user?.name}, choose your seat!` : "Buy a ticket, go to the cinema, and enjoy the movie!"}
+        {sessionData ? `Hi ${sessionData.user?.name}, choose your seat!` : "Buy a ticket, go to the cinema, and enjoy the movie!"}
       </p>
-      <div className="bg-violet-600 w-56 h-9 text-center text-white mb-4 font-bold">
-        SCREEN
-      </div>
-      <SeatMap />
-    </div>
+
+    </>
   );
 };
 

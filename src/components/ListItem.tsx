@@ -52,10 +52,10 @@ export default function ListItem({ movie }) {
                 </div>
                 <div className="flex space-x-4 mb-5 text-sm font-medium">
                     <div className="flex-auto flex space-x-4">
-                        <button className="h-8 px-6 font-semibold rounded-full bg-violet-600 text-white" type="submit">
+                        <button className="h-auto px-6 font-semibold rounded-full bg-violet-600 text-white" type="submit">
                             Check Seat
                         </button>
-                        <button className="h-8 px-6 font-semibold rounded-full border border-slate-200 text-slate-900" type="button">
+                        <button className="h-auto px-6 font-semibold rounded-full border border-slate-200 text-slate-900" type="button">
                             Intro
                         </button>
                     </div>

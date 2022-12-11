@@ -4,7 +4,7 @@ export default function Navbar() {
     return (
 
 
-        <nav className="bg-[#D30013] border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
+        <nav className="bg-[#ff193b] border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900 w-auto">
             <div className="container flex flex-wrap items-center justify-between mx-auto">
                 <a href="https://flowbite.com/" className="flex items-center">
                     <img src="https://upload.wikimedia.org/wikipedia/en/b/b6/Dramatic_Chipmunk.png" className="h-6 mr-3 sm:h-12" alt="Flowbite Logo" />
