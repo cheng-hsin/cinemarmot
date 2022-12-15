@@ -71,9 +71,11 @@ model movies {
 }
 
 model seats {
-  seat_id   BigInt  @id @default(autoincrement())
-  hall_code String? @db.VarChar(255)
-  seat_code String? @db.VarChar(255)
+  seat_id     BigInt   @id @default(autoincrement())
+  hall_code   String?  @db.VarChar(255)
+  seat_row    String?  @db.VarChar(255)
+  seat_column BigInt?
+  available   Boolean?
 }
 
 model showtimes {

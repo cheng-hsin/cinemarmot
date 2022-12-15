@@ -22,4 +22,16 @@ export const exampleRouter = router({
     });
     return ctx.prisma.example.findMany();
   }),
+  joinTable: publicProcedure.query(({ ctx }) => {
+    return ctx.prisma.example.create({
+      data: {
+        id: '2',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    }).finally(() => {
+      console.log('done');
+    });
+  })
+    
 });
