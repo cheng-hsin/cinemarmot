@@ -1,4 +1,5 @@
 export default function ListItem({ movie }) {
+    console.log(movie)
     return (
         <div className="flex font-sans p-5">
             <div className="flex-none w-56 relative">
@@ -7,16 +8,30 @@ export default function ListItem({ movie }) {
             <form className="flex-auto p-6">
                 <div className="flex flex-wrap">
                     <h1 className="flex-auto font-medium text-slate-900">
-                        {movie.movie_release.substring(0,10)}
+                        {movie.movie_language}
                     </h1>
                     <div className="w-full flex-none mt-2 order-1 text-3xl font-bold text-sky-900">
                         {movie.movie_title}
                     </div>
                     <div className="text-sm font-medium text-slate-400">
-                    on view
+                        on view
                     </div>
                 </div>
                 <div className="flex items-baseline mt-4 mb-4 pb-2 border-b border-slate-200">
+
+                    <div className="space-x-2 flex text-sm font-bold">
+                        {movie.showtimes.map((showtime) => (
+                            <label>
+                                <input className="sr-only peer" name="size" type="radio" value="xs" checked />
+                                <div className="w-12 h-9 rounded-full flex items-center justify-center text-violet-400 peer-checked:bg-violet-600 peer-checked:text-white">
+                                    {showtime.showtime_date.slice(5, 10)}
+                                </div>
+                            </label>
+                        ))}
+                    </div>
+                </div>
+                <div className="flex items-baseline mt-4 mb-4 pb-2 border-b border-slate-200">
+
                     <div className="space-x-2 flex text-sm font-bold">
                         <label>
                             <input className="sr-only peer" name="size" type="radio" value="xs" checked />

@@ -5,8 +5,8 @@ const queryClient = new QueryClient();
 
 export default function SeatMap() {
     // const [selected, setSelected] = useState("")
-    const data = trpc.seats.getAll.useQuery()
-    console.log(data)
+    // const data = trpc.seats.getAll.useQuery()
+    // console.log(data)
 
     const row = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
     return (

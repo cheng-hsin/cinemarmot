@@ -13,4 +13,20 @@ export const moviesRouter = router({
   getAll: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.movies.findMany();
   }),
+  getShowTime: publicProcedure.query(({ ctx }) => {
+    return ctx.prisma.movies.findUnique({
+      where: {
+        movie_id: 1,
+      },
+    }).showtimes();
+  }),
+  getShowTimes: publicProcedure.query(({ ctx }) => {
+    return ctx.prisma.movies.findMany(
+      {
+        include: {
+          showtimes: true,
+        }
+      }
+    );
+  }),
 });

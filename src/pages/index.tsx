@@ -3,14 +3,16 @@ import Head from "next/head";
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Axios from 'axios';
-import React from "react";
+import React, { useEffect } from "react";
 import List from '../components/List'
 import ListItem from '../components/ListItem'
 import Navbar from '../components/Navbar'
 import SeatMap from '../components/SeatMap'
-
+import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 import { trpc } from "../utils/trpc";
 import { any, string } from "zod";
+
+const queryClient = new QueryClient();
 
 const Home: NextPage = (props) => {
   interface MyObj {
@@ -28,6 +30,9 @@ const Home: NextPage = (props) => {
   let obj: { string: MyObj[] } = JSON.parse(JSON.stringify(props));
   const movies = obj['result']['data']['json'];
   // console.log(typeof movies);
+  const { data: seats } = trpc.seats.getAll.useQuery()
+  console.log(seats)
+
 
 
   return (
@@ -83,7 +88,9 @@ const AuthShowcase: React.FC = () => {
 };
 
 export const getStaticProps = async () => {
-  const res = await Axios.get("http://localhost:3000/api/trpc/movies.getAll");
+  const res = await Axios.get("http://localhost:3000/api/trpc/movies.getShowTimes");
+  // const data = trpc.seats.getAll.useQuery()
+  // console.log(data)
   return {
     props: res.data,
   };

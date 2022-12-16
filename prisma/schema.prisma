@@ -76,6 +76,11 @@ model seats {
   seat_row    String?  @db.VarChar(255)
   seat_column BigInt?
   available   Boolean?
+  hall_id     BigInt?
+  orders      orders[]
+  halls       halls?   @relation(fields: [hall_id], references: [hall_id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([hall_id], map: "fki_f")
 }
 
 model showtimes {
@@ -85,7 +90,32 @@ model showtimes {
   showtime_time DateTime? @db.Time(6)
   hall_code     String?   @db.VarChar(255)
   ticket_price  BigInt?
+  hall_id       BigInt?
+  orders        orders[]
+  halls         halls?    @relation(fields: [hall_id], references: [hall_id], onDelete: NoAction, onUpdate: NoAction)
   movies        movies    @relation(fields: [movie_id], references: [movie_id], onDelete: NoAction, onUpdate: NoAction)
 
   @@index([movie_id], map: "fki_ㄑ")
+  @@index([hall_id], map: "fki_g")
+}
+
+model orders {
+  order_id    BigInt    @id @default(autoincrement())
+  showtime_id BigInt
+  seat_id     BigInt
+  user_id     String?   @db.VarChar(255)
+  seats       seats     @relation(fields: [seat_id], references: [seat_id], onDelete: NoAction, onUpdate: NoAction)
+  showtimes   showtimes @relation(fields: [showtime_id], references: [showtime_id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([showtime_id], map: "fki_d")
+  @@index([seat_id], map: "fki_s")
+}
+
+model halls {
+  hall_id     BigInt      @id @default(autoincrement())
+  hall_code   String      @db.VarChar(255)
+  halls       halls       @relation("hallsTohalls", fields: [hall_id], references: [hall_id], onDelete: NoAction, onUpdate: NoAction)
+  other_halls halls?      @relation("hallsTohalls")
+  seats       seats[]
+  showtimes   showtimes[]
 }
