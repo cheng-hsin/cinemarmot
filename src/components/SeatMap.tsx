@@ -44,16 +44,6 @@ export default function SeatMap() {
                 <p className='m-4 text-blue-600'>Buy now!</p>
                 <Paypal />
             </div>
-            {
-                orders.data?.map((order) => {
-                    return (
-                        <div className="flex justify-center">
-                            <p className='m-4 text-blue-600'>Buy now!</p>
-                            <Paypal />
-                        </div>
-                    )
-                })
-            }
         </>
     )
 }
