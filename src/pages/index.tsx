@@ -3,7 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Axios from 'axios';
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import List from '../components/List'
 import ListItem from '../components/ListItem'
 import Navbar from '../components/Navbar'
@@ -14,24 +14,15 @@ import { any, string } from "zod";
 
 const queryClient = new QueryClient();
 
-const Home: NextPage = (props) => {
-  interface MyObj {
-    movie_id: bigint
-    movie_title: string | null
-    movie_release: Date | null
-    movie_length: string | null
-    movie_overview: string | null
-    movie_language: string | null
-    movie_poster_path: string | null
-    movie_leading: string | null
-    movie_director: string | null
-  };
 
-  let obj: { string: MyObj[] } = JSON.parse(JSON.stringify(props));
-  const movies = obj['result']['data']['json'];
-  // console.log(typeof movies);
-  const { data: seats } = trpc.seats.getAll.useQuery()
-  console.log(seats)
+const Home: NextPage = (props) => {
+  const [selectedShowtime, setSelectedShowtime] = useState("");
+  const [selectedmovie, setSelectedMovie] = useState("");
+  const [selectedseat, setSelectedSeat] = useState("");
+
+  const { data: movies } = trpc.movies.getShowTimes.useQuery()
+  console.log(typeof movies)
+  console.log(movies)
 
 
 
@@ -48,7 +39,7 @@ const Home: NextPage = (props) => {
           <div className="pl-20 container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
             <div className="divide-y divide-slate-100">
               <List>
-                {movies.map((movie) => (
+                {movies?.map((movie) => (
                   <ListItem key={movie.id} movie={movie} />
                 ))}
               </List>
@@ -86,12 +77,3 @@ const AuthShowcase: React.FC = () => {
     </>
   );
 };
-
-export const getStaticProps = async () => {
-  const res = await Axios.get("http://localhost:3000/api/trpc/movies.getShowTimes");
-  // const data = trpc.seats.getAll.useQuery()
-  // console.log(data)
-  return {
-    props: res.data,
-  };
-}

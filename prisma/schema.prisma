@@ -80,7 +80,7 @@ model seats {
   orders      orders[]
   halls       halls?   @relation(fields: [hall_id], references: [hall_id], onDelete: NoAction, onUpdate: NoAction)
 
-  @@index([hall_id], map: "fki_f")
+  @@index([hall_id], map: "fki_seats_hall")
 }
 
 model showtimes {
@@ -95,8 +95,8 @@ model showtimes {
   halls         halls?    @relation(fields: [hall_id], references: [hall_id], onDelete: NoAction, onUpdate: NoAction)
   movies        movies    @relation(fields: [movie_id], references: [movie_id], onDelete: NoAction, onUpdate: NoAction)
 
-  @@index([movie_id], map: "fki_ㄑ")
-  @@index([hall_id], map: "fki_g")
+  @@index([movie_id], map: "fki_showtimes_movie")
+  @@index([hall_id], map: "fki_showtimes_hall")
 }
 
 model orders {
@@ -107,8 +107,8 @@ model orders {
   seats       seats     @relation(fields: [seat_id], references: [seat_id], onDelete: NoAction, onUpdate: NoAction)
   showtimes   showtimes @relation(fields: [showtime_id], references: [showtime_id], onDelete: NoAction, onUpdate: NoAction)
 
-  @@index([showtime_id], map: "fki_d")
-  @@index([seat_id], map: "fki_s")
+  @@index([showtime_id], map: "fki_orders_showtime")
+  @@index([seat_id], map: "fki_orders_seat")
 }
 
 model halls {

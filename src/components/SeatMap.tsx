@@ -1,12 +1,13 @@
 import { trpc } from '../utils/trpc';
 import Paypal from './Paypal'
+import { useState } from 'react'
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 const queryClient = new QueryClient();
 
 export default function SeatMap() {
-    // const [selected, setSelected] = useState("")
-    // const data = trpc.seats.getAll.useQuery()
-    // console.log(data)
+    const [selected, setSelected] = useState("")
+    const orders = trpc.orders.getAll.useQuery()
+    console.log(orders.data)
 
     const row = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
     return (
@@ -43,6 +44,16 @@ export default function SeatMap() {
                 <p className='m-4 text-blue-600'>Buy now!</p>
                 <Paypal />
             </div>
+            {
+                orders.data?.map((order) => {
+                    return (
+                        <div className="flex justify-center">
+                            <p className='m-4 text-blue-600'>Buy now!</p>
+                            <Paypal />
+                        </div>
+                    )
+                })
+            }
         </>
     )
 }
