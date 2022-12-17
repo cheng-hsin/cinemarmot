@@ -18,3 +18,13 @@ Map data in components:
                   <ListItem key={movie.id} movie={movie} />
                 ))}
 ```
+## Cut string when mapping
+You have to [change the type of your variable to `string`](https://bobbyhadz.com/blog/javascript-typeerror-slice-is-not-a-function#:~:text=The%20%22slice%20is%20not%20a,method%20on%20strings%20or%20arrays.):
+1. Change the type when calling API:
+```ts
+  const { data: movies } = trpc.movies.getShowTimes.useQuery<string>()
+```
+2. use `toString()` method when mapping:
+```ts
+{showtime.showtime_date.toString().slice(4, 10)}
+```
