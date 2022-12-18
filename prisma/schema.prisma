@@ -71,10 +71,10 @@ model movies {
 }
 
 model seats {
-  seat_id     BigInt   @id @default(autoincrement())
+  seat_id     Int      @id @default(autoincrement())
   hall_code   String?  @db.VarChar(255)
   seat_row    String?  @db.VarChar(255)
-  seat_column BigInt?
+  seat_column Int?
   available   Boolean?
   hall_id     BigInt?
   orders      orders[]
@@ -102,7 +102,7 @@ model showtimes {
 model orders {
   order_id    BigInt    @id @default(autoincrement())
   showtime_id BigInt
-  seat_id     BigInt
+  seat_id     Int
   user_id     String?   @db.VarChar(255)
   seats       seats     @relation(fields: [seat_id], references: [seat_id], onDelete: NoAction, onUpdate: NoAction)
   showtimes   showtimes @relation(fields: [showtime_id], references: [showtime_id], onDelete: NoAction, onUpdate: NoAction)

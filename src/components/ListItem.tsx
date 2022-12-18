@@ -1,4 +1,4 @@
-export default function ListItem({ movie, setshowtime }) {
+export default function ListItem({ movie, setshowtime, checkseat }) {
 
     return (
         <div className="flex font-sans p-5">
@@ -22,7 +22,7 @@ export default function ListItem({ movie, setshowtime }) {
                         <div className="relative w-full lg:max-w-sm">
                             <select onChange={setshowtime} className="hover:bg-violet-400 text-white bg-violet-600 focus:ring-2 focus:outline-none focus:ring-violet-600 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-violet-600 dark:hover:bg-violet-600 dark:focus:ring-violet-600">
                                 {
-                                    movie?.showtimes.map((showtime) => (
+                                    movie?.showtimes.map((showtime:any) => (
                                         <option key={showtime.id} value={Number(showtime.showtime_id)} className="font-semibold">Date: {showtime.showtime_date.toString().slice(4, 10)} Time: {showtime.showtime_time.toString().slice(16, 21)}</option>
                                     ))
                                 }
@@ -32,7 +32,7 @@ export default function ListItem({ movie, setshowtime }) {
                 </div>
                 <div className="flex space-x-4 mb-5 text-sm font-medium">
                     <div className="flex-auto flex space-x-4">
-                        <button className="h-auto px-6 font-semibold rounded-full bg-violet-600 text-white" type="submit">
+                        <button onClick={checkseat} className="h-auto px-6 font-semibold rounded-full bg-violet-600 text-white" type="button" >
                             Check Seat
                         </button>
                         <button className="h-auto px-6 font-semibold rounded-full border border-slate-200 text-slate-900" type="button">

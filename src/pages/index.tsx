@@ -17,12 +17,12 @@ const queryClient = new QueryClient();
 
 const Home: NextPage = (props) => {
   const [selectedShowtime, setSelectedShowtime] = useState();
-  const [selectedMovie, setSelectedMovie] = useState("");
-  const [selectedSeat, setSelectedSeat] = useState("");
+  const [selectedMovie, setSelectedMovie] = useState();
+  const [selectedSeat, setSelectedSeat] = useState();
 
   const { data: movies } = trpc.movies.getShowTimes.useQuery()
   // console.log(typeof movies)
-  // console.log(movies)
+  console.log(movies)
 
   function handleShowtimeChange(e: any) {
     setSelectedShowtime(e.target.value);
@@ -34,7 +34,10 @@ const Home: NextPage = (props) => {
     console.log(selectedSeat)
   }
 
-
+  function checkSeat(e: any) {
+    e.preventDefault();
+    console.log(selectedShowtime)
+  }
 
   return (
     <>
@@ -49,8 +52,8 @@ const Home: NextPage = (props) => {
           <div className="pl-20 container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
             <div className="divide-y divide-slate-100">
               <List>
-                {movies?.map((movie) => (
-                  <ListItem key={movie.id} movie={movie} setshowtime={handleShowtimeChange} />
+                {movies?.map((movie:any) => (
+                  <ListItem key={movie.id} movie={movie} setshowtime={handleShowtimeChange} checkseat={checkSeat} selectedshowtime={selectedShowtime}/>
                 ))}
               </List>
             </div>
@@ -58,7 +61,7 @@ const Home: NextPage = (props) => {
           <div className="pr-10 container flex flex-col items-center mt-8 ">
             <div className="flex flex-col items-center  sticky top-0 ">
               <AuthShowcase />
-              <SeatMap setseat={handleSeatChange} />
+              <SeatMap setseat={handleSeatChange} selectedshowtime={selectedShowtime} />
             </div>
           </div>
         </div>

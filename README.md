@@ -44,3 +44,6 @@ export default function Child({ updateData }) {
     );
 }
 ```
+
+# BigInt in prisma is not supported
+If you are using BigInt in prisma, please change it to Int.
