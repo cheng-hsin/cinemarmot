@@ -1,5 +1,5 @@
-export default function ListItem({ movie }) {
-    
+export default function ListItem({ movie, setshowtime }) {
+
     return (
         <div className="flex font-sans p-5">
             <div className="flex-none w-56 relative">
@@ -17,22 +17,19 @@ export default function ListItem({ movie }) {
                         on view
                     </div>
                 </div>
-                
                 <div className="flex items-baseline mt-4 mb-4 pb-2 border-b border-slate-200">
-
                     <div className="space-x-2 flex text-sm font-semibold">
                         <div className="relative w-full lg:max-w-sm">
-                            <select className="hover:bg-violet-400 text-white bg-violet-600 focus:ring-2 focus:outline-none focus:ring-violet-600 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-violet-600 dark:hover:bg-violet-600 dark:focus:ring-violet-600">
+                            <select onChange={setshowtime} className="hover:bg-violet-400 text-white bg-violet-600 focus:ring-2 focus:outline-none focus:ring-violet-600 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-violet-600 dark:hover:bg-violet-600 dark:focus:ring-violet-600">
                                 {
                                     movie?.showtimes.map((showtime) => (
-                                        <option value={`${showtime.showtime_date}${showtime.showtime_time}`} className="font-semibold">Date: {showtime.showtime_date.toString().slice(4, 10)} Time: {showtime.showtime_time.toString().slice(16, 21)}</option>
+                                        <option key={showtime.id} value={Number(showtime.showtime_id)} className="font-semibold">Date: {showtime.showtime_date.toString().slice(4, 10)} Time: {showtime.showtime_time.toString().slice(16, 21)}</option>
                                     ))
                                 }
                             </select>
                         </div>
                     </div>
                 </div>
-               
                 <div className="flex space-x-4 mb-5 text-sm font-medium">
                     <div className="flex-auto flex space-x-4">
                         <button className="h-auto px-6 font-semibold rounded-full bg-violet-600 text-white" type="submit">
