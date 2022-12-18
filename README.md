@@ -6,4 +6,4 @@ You have to:
 2. Call that function from the child component. 
 3. The function will be called with the data as an argument.
 
-The parent component will receive the data as an argument in the function.
+The parent component will receive the data as an argument in the function. 
