@@ -15,46 +15,32 @@ Parent.js
 import React, { Component } from 'react';
 import Child from './Child';
 
-class Parent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: 'Hello World'
-    }
+export default function Parent() {
+  const [data, setData] = useState('Hello World');
+
+  const updateData = (data) => {
+    setData(data);
   }
 
-  render() {
-    return (
-      <div>
-        <Child data={this.state.data} />
-      </div>
-    );
-  }
+  return (
+    <div>
+      <h1>{data}</h1>
+      <Child updateData={updateData} />
+    </div>
+  );
 }
-
-export default Parent;
 ```
 
 Child.js
 ```js
 import React, { Component } from 'react';
 
-class Child extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: 'Hello World'
-    }
-  }
-
-  render() {
+export default function Child({ updateData }) {
+ 
     return (
-      <div>
-        <h1>{this.props.data}</h1>
-      </div>
+        <div>
+            <button onClick={updateData}>Update Data</button>
+        </div>
     );
-  }
 }
-
-export default Child;
 ```
