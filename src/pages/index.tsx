@@ -2,7 +2,6 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
-import Axios from 'axios';
 import React, { useEffect, useState } from "react";
 import List from '../components/List'
 import ListItem from '../components/ListItem'
