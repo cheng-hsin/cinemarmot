@@ -15,3 +15,4 @@ For example:
     ```
 3. If you are using typescript, you have to make sure that all the type of your project is correct.
 4. Add environment variables to your project. You can import the .env file to your project directly.
+5. Don't forget to change database url to your remote database url.
