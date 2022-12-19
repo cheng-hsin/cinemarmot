@@ -53,7 +53,9 @@ const AuthShowcase: React.FC = () => {
                 </button>
             </div>
             <div className="flex flex-col items-center justify-center">
-                <img src={sessionData && sessionData.user?.image} className="h-6 mr-0 sm:h-12" alt="" />
+                {sessionData?.user?.image ?
+                    <img src={sessionData.user.image} className="h-6 mr-0 sm:h-12" alt="" /> : <></>}
+
             </div>
         </div>
     );

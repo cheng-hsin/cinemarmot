@@ -29,12 +29,12 @@ export default function SeatMap({ setseat, selectedshowtime }:any) {
                     {
                         row.map((_, i) => {
                             return (
-                                <li className="row row--1">
+                                <li key={i} className="row row--1">
                                     <ol className="seats">
                                         {
                                             [...Array(12)].map((_, j) => {
                                                 return (
-                                                    <li className="seat" onChange={setseat}>
+                                                    <li key={j} className="seat" onChange={setseat}>
                                                         <input disabled={soldOutSeats?.includes(`${row[i]}${j + 1}`)} type="radio" className="hidden" name="radio" value={`${row[i]}${j + 1}`} id={`${row[i]}${j + 1}`} />
                                                         <label htmlFor={`${row[i]}${j + 1}`}>{`${row[i]}${j + 1}`}</label>
                                                     </li>

@@ -1,4 +1,4 @@
-export default function NavItem({ href, isActive, children }) {
+export default function NavItem({ href, isActive, children }:any) {
     return (
       <li>
         <a

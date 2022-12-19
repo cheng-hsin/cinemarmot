@@ -10,13 +10,13 @@ export const showtimesRouter = router({
         greeting: `Hello ${input?.text ?? "world"}`,
       };
     }),
-  getSeats: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.showtimes.findMany(
-        {
-            include: {
-                seats: true,
-            }
-        }
-    );
-  }),
+  // getSeats: publicProcedure.query(({ ctx }) => {
+  //   return ctx.prisma.showtimes.findMany(
+  //       {
+  //           include: {
+  //               seats: true,
+  //           }
+  //       }
+  //   );
+  // }),
 });
