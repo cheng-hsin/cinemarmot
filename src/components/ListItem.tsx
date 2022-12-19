@@ -21,8 +21,9 @@ export default function ListItem({ movie, setshowtime, checkseat }) {
                     <div className="space-x-2 flex text-sm font-semibold">
                         <div className="relative w-full lg:max-w-sm">
                             <select onChange={setshowtime} className="hover:bg-violet-400 text-white bg-violet-600 focus:ring-2 focus:outline-none focus:ring-violet-600 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-violet-600 dark:hover:bg-violet-600 dark:focus:ring-violet-600">
+                                <option className="font-semibold hidden">select show time</option>
                                 {
-                                    movie?.showtimes.map((showtime:any) => (
+                                    movie?.showtimes.map((showtime: any) => (
                                         <option key={showtime.id} value={Number(showtime.showtime_id)} className="font-semibold">Date: {showtime.showtime_date.toString().slice(4, 10)} Time: {showtime.showtime_time.toString().slice(16, 21)}</option>
                                     ))
                                 }
