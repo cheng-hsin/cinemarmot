@@ -1,4 +1,4 @@
-export default function ListItem({ movie, setshowtime, checkseat }) {
+export default function ListItem({ movie, setshowtime, checkseat }:any) {
 
     return (
         <div className="flex font-sans p-5">

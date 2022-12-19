@@ -6,7 +6,7 @@ import { any } from 'zod';
 import ListItem from './ListItem'
 const queryClient = new QueryClient();
 
-export default function SeatMap({ setseat, selectedshowtime }) {
+export default function SeatMap({ setseat, selectedshowtime }:any) {
     const { data: orders } = trpc.orders.showSeats.useQuery(selectedshowtime)
     const { data: seats } = trpc.seats.getAll.useQuery()
     const [soldOutSeats, setSoldOutSeats] = useState<any>([])
@@ -30,7 +30,7 @@ export default function SeatMap({ setseat, selectedshowtime }) {
                         row.map((_, i) => {
                             return (
                                 <li className="row row--1">
-                                    <ol className="seats" type={row[i]}>
+                                    <ol className="seats">
                                         {
                                             [...Array(12)].map((_, j) => {
                                                 return (
