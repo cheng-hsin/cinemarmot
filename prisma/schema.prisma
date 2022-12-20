@@ -58,7 +58,7 @@ model VerificationToken {
 }
 
 model movies {
-  movie_id          BigInt      @id @default(autoincrement())
+  movie_id          Int         @id @default(autoincrement())
   movie_title       String?     @db.VarChar(255)
   movie_release     DateTime?   @db.Date
   movie_length      String?     @db.VarChar(255)
@@ -76,7 +76,7 @@ model seats {
   seat_row    String?  @db.VarChar(255)
   seat_column Int?
   available   Boolean?
-  hall_id     BigInt?
+  hall_id     Int?
   orders      orders[]
   halls       halls?   @relation(fields: [hall_id], references: [hall_id], onDelete: NoAction, onUpdate: NoAction)
 
@@ -84,13 +84,13 @@ model seats {
 }
 
 model showtimes {
-  showtime_id   BigInt    @id @default(autoincrement())
-  movie_id      BigInt
+  showtime_id   Int       @id @default(autoincrement())
+  movie_id      Int
   showtime_date DateTime? @db.Date
   showtime_time DateTime? @db.Time(6)
   hall_code     String?   @db.VarChar(255)
-  ticket_price  BigInt?
-  hall_id       BigInt?
+  ticket_price  Int?
+  hall_id       Int?
   orders        orders[]
   halls         halls?    @relation(fields: [hall_id], references: [hall_id], onDelete: NoAction, onUpdate: NoAction)
   movies        movies    @relation(fields: [movie_id], references: [movie_id], onDelete: NoAction, onUpdate: NoAction)
@@ -100,8 +100,8 @@ model showtimes {
 }
 
 model orders {
-  order_id    BigInt    @id @default(autoincrement())
-  showtime_id BigInt
+  order_id    Int       @id @default(autoincrement())
+  showtime_id Int
   seat_id     Int
   user_id     String?   @db.VarChar(255)
   seats       seats     @relation(fields: [seat_id], references: [seat_id], onDelete: NoAction, onUpdate: NoAction)
@@ -112,7 +112,7 @@ model orders {
 }
 
 model halls {
-  hall_id     BigInt      @id @default(autoincrement())
+  hall_id     Int         @id @default(autoincrement())
   hall_code   String      @db.VarChar(255)
   halls       halls       @relation("hallsTohalls", fields: [hall_id], references: [hall_id], onDelete: NoAction, onUpdate: NoAction)
   other_halls halls?      @relation("hallsTohalls")

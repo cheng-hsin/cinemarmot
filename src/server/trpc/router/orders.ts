@@ -13,20 +13,23 @@ export const ordersRouter = router({
   getAll: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.orders.findMany();
   }),
-  showSeatsv0: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.orders.findMany(
-      {
-        include: {
-          showtimes: true,
-          seats: true,
-        },
-        where: {
-          showtime_id: 1,
-        },
-      }
-    );
-  }),
+  // showSeatsv0: publicProcedure.query(({ ctx }) => {
+  //   return ctx.prisma.orders.findMany(
+  //     {
+  //       include: {
+  //         showtimes: true,
+  //         seats: true,
+  //       },
+  //       where: {
+  //         showtime_id: 1,
+  //       },
+  //     }
+  //   );
+  // }),
   showSeats: publicProcedure.input(Number).query(async ({ input, ctx }) => {
+    if (isNaN(input)) {
+      return null;
+    }
     return await ctx.prisma.orders.findMany({
       include: {
         showtimes: true,
