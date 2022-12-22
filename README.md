@@ -1,18 +1,20 @@
-# disabled seat
-If you want to add disabled seats to your map, you can do so by adding the `disabled` attribute to the `seat` element. 
-
-disabled property is a boolean value, so you can set a condition to disable a seat. 
-
-For example:
-```js
-<seat id="seat1" disabled={array.include(value)}>A1</seat>
-```
-# Deploy T3-App to Vercel : [Link](https://create.t3.gg/en/deployment/vercel)
-1. Login vercel with your gitlab account and import your project.
-2. Add a `vercel.json` file to your project root directory. 
-    ```json
-    {}
+# Connect to Azure PostgreSQL Database
+If you already have a database in Azure, you can connect to it by following the steps below:
+1. Modify the `DATABASE_URL` in the `.env` file to your database url.
+   The format of the database url is as follows:
+   ```
+   DATABASE_URL="postgresql://johndoe:randompassword@localhost:5432/mydb?schema=public"
     ```
-3. If you are using typescript, you have to make sure that all the type of your project is correct.
-4. Add environment variables to your project. You can import the .env file to your project directly.
-5. Don't forget to change database url to your remote database url.
+2. Please check `DATABASE_URL` and `DATABASE_PASSWORD` in the `.env` file. 
+
+    For example, in your database URL, if your username or password contains `@` character, it should be replaced with its equivalent percent-encoding, that is `%40`. For `#` it is `%23` and so on. 
+
+    Please check [stack overflow](https://stackoverflow.com/questions/63684133/prisma-cant-connect-to-postgresql).
+
+# Migrate data to Azure PostgreSQL Database
+## Export data from local database
+Right click table in the database and select `view data` - `all row` to export data from local database.
+
+## Import data to database
+1. Use Prisma Client to push tables to database.
+2. Right click table in the database and select `import data` to import data with csv file.
