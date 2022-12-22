@@ -19,7 +19,7 @@ Right click table in the database and select `view data` - `all row` to export d
 1. Use Prisma Client to push tables to database.
 2. Right click table in the database and select `import data` to import data with csv file.
 
-# Setting SEQUENCE
+# Set SEQUENCE
 Reset the sequence of the table to the maximum value of the primary key.
 ```sql
 SELECT setval(pg_get_serial_sequence('table_name', 'column_name'), MAX(id)) FROM table_name;
