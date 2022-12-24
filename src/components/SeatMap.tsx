@@ -2,11 +2,12 @@ import { trpc } from '../utils/trpc';
 import Paypal from './Paypal'
 import { useState, useEffect } from 'react'
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { any } from 'zod';
 import ListItem from './ListItem'
 const queryClient = new QueryClient();
 
-export default function SeatMap({ setseat, selectedshowtime }:any) {
+export default function SeatMap({ setseat, selectedshowtime }: any) {
     const { data: orders } = trpc.orders.showSeats.useQuery(selectedshowtime)
     const { data: seats } = trpc.seats.getAll.useQuery()
     const [soldOutSeats, setSoldOutSeats] = useState<any>([])
@@ -50,9 +51,30 @@ export default function SeatMap({ setseat, selectedshowtime }:any) {
                 </ol>
             </div>
             <div className="flex justify-center">
-                <p className='m-4 text-blue-600'>Buy now!</p>
-                <Paypal />
+                <AuthShowcase />
             </div>
         </>
     )
 }
+
+const AuthShowcase: React.FC = () => {
+    const { data: sessionData } = useSession();
+
+    const { data: secretMessage } = trpc.auth.getSecretMessage.useQuery(
+        undefined, // no input
+        { enabled: sessionData?.user !== undefined },
+    );
+
+    return (
+        <div className="flex flex-row items-center justify-center">
+            <div className="flex flex-col items-center justify-center">
+                <button
+                    className="mr-1 bg-white/10  font-semibold text-black no-underline transition hover:bg-white/20"
+                    onClick={sessionData ? () => signOut() : () => signIn()}
+                >
+                    {sessionData ?  <Paypal /> : "Please sign in to buy a ticket!"}
+                </button>
+            </div>
+        </div>
+    );
+};

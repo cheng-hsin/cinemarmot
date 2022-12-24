@@ -6,9 +6,10 @@ import ListItem from '../components/ListItem'
 import SeatMap from '../components/SeatMap'
 import { trpc } from "../utils/trpc";
 import Layout from "./Layout";
+import Link from 'next/link'
 
 
-const MovieListPage: NextPage = (props) => {
+const HomePage: NextPage = (props) => {
   const [selectedShowtime, setSelectedShowtime] = useState();
   const [selectedMovie, setSelectedMovie] = useState();
   const [selectedSeat, setSelectedSeat] = useState();
@@ -34,22 +35,15 @@ const MovieListPage: NextPage = (props) => {
 
   return (
     <>
-      <Layout />
-      <main className="flex min-h-screen flex-col items-center justify-center bg-white">
-        <div className="container flex flex-row">
-          <div className="pl-20 container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
-            <div className="divide-y divide-slate-100">
-              <List>
-                {movies?.map((movie:any) => (
-                  <ListItem key={movie.id} movie={movie} setshowtime={handleShowtimeChange} checkseat={checkSeat} selectedshowtime={selectedShowtime}/>
-                ))}
-              </List>
-            </div>
-          </div>
-          <div className="pr-10 container flex flex-col items-center mt-8 ">
-            <div className="flex flex-col items-center  sticky top-0 ">
-              <AuthShowcase />
-              <SeatMap setseat={handleSeatChange} selectedshowtime={selectedShowtime} />
+      <main className="flex flex-col items-center justify-center bg-white">
+        <div className="py-6 md:py-12 mt-16">
+          <div className="container px-4 mx-auto">
+            <div className="text-center max-w-3xl mx-auto">
+              <h1 className="text-3xl md:text-4xl font-serif mb-5">You see it, you like it, you want it, you got it.</h1>
+              <Link href='/MovieListPage' className="bg-indigo-600 text-white py-2 px-6 rounded-full text-xl mt-6">Get A Ticket</Link>
+              <div className="mt-4 object-center">
+                <img src="https://media.tenor.com/OXkz5W1XP3kAAAAC/tenor.gif" alt="mockup" className="h-auto w-96 inline rounded shadow-md" />
+              </div>
             </div>
           </div>
         </div>
@@ -58,7 +52,7 @@ const MovieListPage: NextPage = (props) => {
   );
 };
 
-export default MovieListPage;
+export default HomePage;
 
 const AuthShowcase: React.FC = () => {
   const { data: sessionData } = useSession();

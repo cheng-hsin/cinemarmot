@@ -1,5 +1,6 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import { trpc } from "../utils/trpc";
+import Link from "next/link";
 export default function Navbar() {
     return (
 
@@ -18,7 +19,12 @@ export default function Navbar() {
                     <ul className="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                         <div className="flex flex-col items-center justify-center gap-4">
                             <li className="flex flex-col items-center justify-center gap-4">
-                                <a href="#" className="block py-2 pl-3 pr-4 ml-1 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white " aria-current="page">Home</a>
+                                <Link href="/" className="block py-2 pl-3 pr-4 ml-1 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white " aria-current="page">Home</Link>
+                            </li>
+                        </div>
+                        <div className="flex flex-col items-center justify-center gap-4">
+                            <li className="flex flex-col items-center justify-center gap-4">
+                                <Link href="/MovieListPage" className="block py-2 pl-3 pr-4 ml-1 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white " aria-current="page">Movie List</Link>
                             </li>
                         </div>
                         <div>
