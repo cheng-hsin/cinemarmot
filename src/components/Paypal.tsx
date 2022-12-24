@@ -1,5 +1,13 @@
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
-export default function Paypal() {
+import { loadScript } from '@paypal/paypal-js';
+import { OnApproveData, OnApproveActions } from "@paypal/paypal-js/types/components/buttons";
+import { trpc } from '../utils/trpc';
+
+
+export default function Paypal({ selectedSeat, selectedShowtime, userId }: any) {
+
+    console.log('seat, showtime, user', selectedSeat, selectedShowtime, userId)
+
     return (
         <div className='App mt-4'>
             <PayPalScriptProvider
@@ -23,18 +31,17 @@ export default function Paypal() {
                                     amount: {
                                         value: '450.00',
                                     },
+
                                 },
                             ],
                         });
                     }}
-                    // onApprove={(data, actions) => {
-                    //     return actions.order.capture().then(function (details) {
-                    //         alert(
-                    //             'Transaction completed by ' + details.payer.name.given_name + details.payer.name.surname + '!'
-                    //         );
-                    //     });
-
-                    // }}
+                    onApprove={async (data: OnApproveData, actions: OnApproveActions) => {
+                        console.log('seat, showtime, user', selectedSeat, selectedShowtime, userId)
+                        actions.order?.capture().then(function (details) {
+                            alert('You have successfully created subscription ' + details.payer.name?.given_name + details.payer.name?.surname);
+                        });
+                    }}
                 />
             </PayPalScriptProvider>
         </div>

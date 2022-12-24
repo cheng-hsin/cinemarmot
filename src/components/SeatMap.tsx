@@ -7,10 +7,21 @@ import { any } from 'zod';
 import ListItem from './ListItem'
 const queryClient = new QueryClient();
 
-export default function SeatMap({ setseat, selectedshowtime }: any) {
+
+
+
+
+
+export default function SeatMap({ selectedshowtime }: any) {
     const { data: orders } = trpc.orders.showSeats.useQuery(selectedshowtime)
-    const { data: seats } = trpc.seats.getAll.useQuery()
     const [soldOutSeats, setSoldOutSeats] = useState<any>([])
+    const [selectedSeat, setSelectedSeat] = useState<number | undefined>();
+    console.log('選擇的場次',selectedshowtime)
+    function handleSeatChange(e: any) {
+        setSelectedSeat(e.target.value);
+        console.log(selectedSeat)
+    }
+
     console.log(orders)
     console.log(typeof orders)
 
@@ -35,8 +46,8 @@ export default function SeatMap({ setseat, selectedshowtime }: any) {
                                         {
                                             [...Array(12)].map((_, j) => {
                                                 return (
-                                                    <li key={j} className="seat" onChange={setseat}>
-                                                        <input disabled={soldOutSeats?.includes(`${row[i]}${j + 1}`)} type="radio" className="hidden" name="radio" value={`${row[i]}${j + 1}`} id={`${row[i]}${j + 1}`} />
+                                                    <li key={j} className="seat" onChange={handleSeatChange}>
+                                                        <input disabled={soldOutSeats?.includes(`${row[i]}${j + 1}`)} type="radio" className="hidden" name="radio" value={(i*12)+(j+1)} id={`${row[i]}${j + 1}`} />
                                                         <label htmlFor={`${row[i]}${j + 1}`}>{`${row[i]}${j + 1}`}</label>
                                                     </li>
                                                 )
@@ -51,19 +62,18 @@ export default function SeatMap({ setseat, selectedshowtime }: any) {
                 </ol>
             </div>
             <div className="flex justify-center">
-                <AuthShowcase />
+                <AuthShowcase selectedShowtime={selectedshowtime} selectedSeat={selectedSeat} />
             </div>
         </>
     )
 }
 
-const AuthShowcase: React.FC = () => {
+const AuthShowcase: React.FC<any> = ({selectedSeat, selectedShowtime}:any) => {
     const { data: sessionData } = useSession();
-
-    const { data: secretMessage } = trpc.auth.getSecretMessage.useQuery(
-        undefined, // no input
-        { enabled: sessionData?.user !== undefined },
-    );
+    const seat = String(selectedSeat)
+    const showtime = String(selectedShowtime)
+    const userId = sessionData?.user?.id
+    console.log('selectedSeat, selectedShowtime, userId', selectedSeat, selectedShowtime, userId)
 
     return (
         <div className="flex flex-row items-center justify-center">
@@ -72,8 +82,11 @@ const AuthShowcase: React.FC = () => {
                     className="mr-1 bg-white/10  font-semibold text-black no-underline transition hover:bg-white/20"
                     onClick={sessionData ? () => signOut() : () => signIn()}
                 >
-                    {sessionData ?  <Paypal /> : "Please sign in to buy a ticket!"}
+                    {sessionData ? <Paypal selectedSeat={seat} selectedShowtime={showtime} userId={userId} /> : "Please sign in to buy a ticket!"}
                 </button>
+                <p>
+                    {sessionData ? <p>Hi {seat}, {showtime}, {userId}!</p> : ""}
+                </p>
             </div>
         </div>
     );

@@ -10,8 +10,7 @@ import Layout from "./Layout";
 
 const MovieListPage: NextPage = (props) => {
   const [selectedShowtime, setSelectedShowtime] = useState();
-  const [selectedMovie, setSelectedMovie] = useState();
-  const [selectedSeat, setSelectedSeat] = useState();
+  
 
   const { data: movies } = trpc.movies.getShowTimes.useQuery()
   // console.log(typeof movies)
@@ -22,10 +21,7 @@ const MovieListPage: NextPage = (props) => {
     console.log(selectedShowtime)
   }
 
-  function handleSeatChange(e: any) {
-    setSelectedSeat(e.target.value);
-    console.log(selectedSeat)
-  }
+
 
   function checkSeat(e: any) {
     e.preventDefault();
@@ -49,7 +45,7 @@ const MovieListPage: NextPage = (props) => {
           <div className="pr-10 container flex flex-col items-center mt-8 ">
             <div className="flex flex-col items-center  sticky top-0 ">
               <AuthShowcase />
-              <SeatMap setseat={handleSeatChange} selectedshowtime={selectedShowtime} />
+              <SeatMap selectedshowtime={selectedShowtime} />
             </div>
           </div>
         </div>
@@ -62,12 +58,6 @@ export default MovieListPage;
 
 const AuthShowcase: React.FC = () => {
   const { data: sessionData } = useSession();
-
-  const { data: secretMessage } = trpc.auth.getSecretMessage.useQuery(
-    undefined, // no input
-    { enabled: sessionData?.user !== undefined },
-  );
-
   return (
     <>
       <p className="text-center text-2xl text-stone-400 mt-8 mb-2">

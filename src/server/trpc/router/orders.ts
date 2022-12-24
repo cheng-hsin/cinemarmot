@@ -40,4 +40,15 @@ export const ordersRouter = router({
       },
     });
   }),
+  createOrder: publicProcedure.input(String).query(async({ input, ctx }: any) => {
+    const { selectedSeat, selectedShowtime, userId } = input;
+    console.log('seat, showtime, user', selectedSeat, selectedShowtime, userId)
+    return await ctx.prisma.orders.create({
+      data: {
+        showtime_id: 1,
+        seat_id: 25,
+        user_id: 'clc0381nb0000lc08u8fr5std',
+      },
+    });
+  }),
 });

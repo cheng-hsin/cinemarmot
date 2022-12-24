@@ -13,6 +13,7 @@ const HomePage: NextPage = (props) => {
   const [selectedShowtime, setSelectedShowtime] = useState();
   const [selectedMovie, setSelectedMovie] = useState();
   const [selectedSeat, setSelectedSeat] = useState();
+  
 
   const { data: movies } = trpc.movies.getShowTimes.useQuery()
   // console.log(typeof movies)
@@ -53,21 +54,3 @@ const HomePage: NextPage = (props) => {
 };
 
 export default HomePage;
-
-const AuthShowcase: React.FC = () => {
-  const { data: sessionData } = useSession();
-
-  const { data: secretMessage } = trpc.auth.getSecretMessage.useQuery(
-    undefined, // no input
-    { enabled: sessionData?.user !== undefined },
-  );
-
-  return (
-    <>
-      <p className="text-center text-2xl text-stone-400 mt-8 mb-2">
-        {sessionData ? `Hi ${sessionData.user?.name}, choose your seat!` : "Buy a ticket, go to the cinema, and enjoy the movie!"}
-      </p>
-
-    </>
-  );
-};
